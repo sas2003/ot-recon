@@ -6,6 +6,7 @@ from ot_recon.core.parser import parse_results
 from ot_recon.core.enricher import enrich
 from ot_recon.core.reporter import generate_report
 from ot_recon.core.classifier import classify
+from ot_recon.core.risk import assess_risk
 
 def banner():
     print(r"""
@@ -48,7 +49,8 @@ def main():
 
         data = parse_results()
         data = enrich(data)
-        data = classify(data)   # Newly added
+        data = classify(data)
+        data = assess_risk(data)
         generate_report(data)
 
     else:
