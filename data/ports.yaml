@@ -1,0 +1,35 @@
+21:
+  protocol: "FTP"
+  desc: "File Transfer Protocol"
+  
+22:
+  protocol: "SSH"
+  desc: "Secure Shell"
+
+80:
+  protocol: "HTTP"
+  desc: "Hyper Text Transfer Protocol"
+
+102:
+  protocol: "S7"
+  desc: "Siemens PLC communication"
+
+502:
+  protocol: "Modbus"
+  desc: "Modbus TCP"
+
+4840:
+  protocol: "OPC-UA"
+  desc: "OPCUA"
+
+5900:
+  protocol: "VNC"
+  desc: "Virtual Network Computing"
+
+44818:
+  protocol: "EtherNet/IP"
+  desc: "Rockwell PLC communication"
+
+20000:
+  protocol: "DNP3"
+  desc: "SCADA protocol"

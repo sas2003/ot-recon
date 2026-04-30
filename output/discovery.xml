@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///C:/Program Files (x86)/Nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.99 scan initiated Tue Apr 28 15:19:28 2026 as: nmap -sn -oX output/discovery.xml 192.168.0.1/24 -->
+<nmaprun scanner="nmap" args="nmap -sn -oX output/discovery.xml 192.168.0.1/24" start="1777369768" startstr="Tue Apr 28 15:19:28 2026" version="7.99" xmloutputversion="1.05">
+<verbose level="0"/>
+<debugging level="0"/>
+<taskprogress task="Ping Scan" time="1777369771" percent="1.46" remaining="202" etc="1777369973"/>
+<taskprogress task="Ping Scan" time="1777369772" percent="1.95" remaining="201" etc="1777369973"/>

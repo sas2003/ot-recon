@@ -1,0 +1,2 @@
+[console_scripts]
+ot-recon = ot_recon.main:main

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///C:/Program Files (x86)/Nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.94 scan initiated Mon Apr 27 22:56:47 2026 as: nmap -n -T4 -p 102,502,44818,20000 -sT -oX output/scan.xml 192.168.1.1 192.168.1.10 192.168.1.2 -->
+<nmaprun scanner="nmap" args="nmap -n -T4 -p 102,502,44818,20000 -sT -oX output/scan.xml 192.168.1.1 192.168.1.10 192.168.1.2" start="1777310807" startstr="Mon Apr 27 22:56:47 2026" version="7.94" xmloutputversion="1.05">
+<scaninfo type="connect" protocol="tcp" numservices="4" services="102,502,20000,44818"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.1.1" addrtype="ipv4"/>
+<address addr="6C:4F:89:F2:6F:71" addrtype="mac"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.1.10" addrtype="ipv4"/>
+<address addr="36:28:9C:87:4C:7E" addrtype="mac"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1777310808" endtime="1777310810"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.1.1" addrtype="ipv4"/>
+<address addr="6C:4F:89:F2:6F:71" addrtype="mac"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="102"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="iso-tsap" method="table" conf="3"/></port>
+<port protocol="tcp" portid="502"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="mbap" method="table" conf="3"/></port>
+<port protocol="tcp" portid="20000"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="dnp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="44818"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="EtherNetIP-2" method="table" conf="3"/></port>
+</ports>
+<times srtt="4000" rttvar="5000" to="100000"/>
+</host>
+<host starttime="1777310808" endtime="1777310810"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.1.10" addrtype="ipv4"/>
+<address addr="36:28:9C:87:4C:7E" addrtype="mac"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="102"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="iso-tsap" method="table" conf="3"/></port>
+<port protocol="tcp" portid="502"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="mbap" method="table" conf="3"/></port>
+<port protocol="tcp" portid="20000"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="dnp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="44818"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="EtherNetIP-2" method="table" conf="3"/></port>
+</ports>
+<times srtt="90000" rttvar="90000" to="450000"/>
+</host>
+<host starttime="1777310810" endtime="1777310812"><status state="up" reason="localhost-response" reason_ttl="0"/>
+<address addr="192.168.1.2" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="102"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="iso-tsap" method="table" conf="3"/></port>
+<port protocol="tcp" portid="502"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="mbap" method="table" conf="3"/></port>
+<port protocol="tcp" portid="20000"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="dnp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="44818"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="EtherNetIP-2" method="table" conf="3"/></port>
+</ports>
+</host>
+<runstats><finished time="1777310812" timestr="Mon Apr 27 22:56:52 2026" summary="Nmap done at Mon Apr 27 22:56:52 2026; 3 IP addresses (3 hosts up) scanned in 5.73 seconds" elapsed="5.73" exit="success"/><hosts up="3" down="0" total="3"/>
+</runstats>
+</nmaprun>
