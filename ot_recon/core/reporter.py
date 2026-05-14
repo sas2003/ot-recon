@@ -7,6 +7,7 @@ console = Console()
 
 
 def generate_report(data):
+
     console.print("\n[bold cyan]=== OT Recon Report ===[/bold cyan]\n")
 
     if not data:
@@ -18,19 +19,34 @@ def generate_report(data):
     table.add_column("IP", style="cyan")
     table.add_column("Type")
     table.add_column("Protocols")
+    table.add_column("Confidence")
     table.add_column("Risks")
 
     for host in data:
-        protocols = ", ".join([p["protocol"] for p in host.get("ot_ports", [])]) or "-"
+
         host_type = host.get("type", "Unknown")
 
+        protocols = ", ".join(
+            [p["protocol"] for p in host.get("ot_ports", [])]
+        ) or "-"
+
+        confidence = ", ".join(
+            [p["confidence"] for p in host.get("ot_ports", [])]
+        ) or "-"
+
         risks = host.get("risks", [])
-        risk_text = "\n".join([f"[red]{r}[/red]" for r in risks]) if risks else "[green]None[/green]"
+
+        risk_text = (
+            "\n".join([f"[red]{r}[/red]" for r in risks])
+            if risks
+            else "[green]None[/green]"
+        )
 
         table.add_row(
             host["ip"],
             host_type,
             protocols,
+            confidence,
             risk_text
         )
 

@@ -1,4 +1,4 @@
-# core/parser.py
+# ot_recon/core/parser.py
 
 import xml.etree.ElementTree as ET
 
@@ -15,19 +15,30 @@ def parse_results():
         ip = host.find("address").get("addr")
 
         ports = []
+
         for p in host.findall(".//port"):
+
             state = p.find("state").get("state")
 
+            # Extract service info from Nmap
+            service = p.find("service")
+
+            if service is not None:
+                service_name = service.get("name", "unknown")
+            else:
+                service_name = "unknown"
+
             if state in ["open", "filtered"]:
+
                 ports.append({
                     "port": int(p.get("portid")),
-                    "state": state
+                    "state": state,
+                    "service": service_name
                 })
 
-        if ports:
-            results.append({
-                "ip": ip,
-                "ports": ports
-            })
+        results.append({
+            "ip": ip,
+            "ports": ports
+        })
 
     return results
