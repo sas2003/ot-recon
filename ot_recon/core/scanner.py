@@ -1,5 +1,5 @@
 # core/scanner.py
-
+from ot_recon.core.paths import DISCOVERY_XML, SCAN_XML
 import subprocess
 import xml.etree.ElementTree as ET
 
@@ -17,7 +17,7 @@ def discover_hosts(target, verbose=False):
     cmd = [
         "nmap",
         "-sn",
-        "-oX", "output/discovery.xml",
+        "-oX", str(DISCOVERY_XML),
         target
     ]
 
@@ -30,7 +30,17 @@ def discover_hosts(target, verbose=False):
 def parse_discovery():
     hosts = []
 
-    tree = ET.parse("output/discovery.xml")
+    try:  
+        tree = ET.parse(DISCOVERY_XML)
+
+    except FileNotFoundError:
+        print("[-] Discovery results not found.")
+        return []
+
+    except ET.ParseError:
+        print("[-] Discovery XML is invalid.")
+        return []
+
     root = tree.getroot()
 
     for host in root.findall("host"):
@@ -54,10 +64,10 @@ def scan_live_hosts(hosts, verbose=False):
     cmd = [
         "nmap",
         "-n",
-        "-T4",
+        "-T5",
         "-p", "21,22,80,102,502,4840,5900,44818,20000",
         "-sT",
-        "-oX", "output/scan.xml",
+        "-oX", str(SCAN_XML),
     ] + hosts
 
     run_cmd(cmd, verbose)

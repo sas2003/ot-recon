@@ -1,10 +1,11 @@
 # ot_recon/core/enricher.py
 
 import yaml
+from ot_recon.core.paths import PORTS_YAML
 
 
 def load_port_map():
-    with open("data/ports.yaml", "r") as f:
+    with open(PORTS_YAML, "r") as f:
         return yaml.safe_load(f)
 
 

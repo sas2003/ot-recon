@@ -1,12 +1,22 @@
 # ot_recon/core/parser.py
 
 import xml.etree.ElementTree as ET
+from ot_recon.core.paths import SCAN_XML
 
 
 def parse_results():
     print("[+] Parsing scan results...")
 
-    tree = ET.parse("output/scan.xml")
+    try:  
+        tree = ET.parse(SCAN_XML)
+
+    except FileNotFoundError:
+        print("[-] Discovery results not found.")
+        return []
+
+    except ET.ParseError:
+        print("[-] Discovery XML is invalid.")
+        return []    
     root = tree.getroot()
 
     results = []

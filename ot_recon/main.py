@@ -7,6 +7,7 @@ from ot_recon.core.enricher import enrich
 from ot_recon.core.reporter import generate_report
 from ot_recon.core.classifier import classify
 from ot_recon.core.risk import assess_risk
+from ot_recon.core.fingerprinter import fingerprint
 
 def banner():
     print(r"""
@@ -29,7 +30,7 @@ def main():
     parser = argparse.ArgumentParser(
         prog="ot-recon",
         description="OT Network Recon Tool (Safe & OT-aware)",
-        epilog="Author: Abhinav | Version: v0.1"
+        epilog="Author: Abhinav | Version: v1.0"
     )
 
     parser.add_argument("command", help="scan")
@@ -49,6 +50,7 @@ def main():
 
         data = parse_results()
         data = enrich(data)
+        data = fingerprint(data)
         data = classify(data)
         data = assess_risk(data)
         generate_report(data)

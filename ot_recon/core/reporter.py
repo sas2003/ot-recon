@@ -1,5 +1,3 @@
-# ot_recon/core/reporter.py
-
 from rich.console import Console
 from rich.table import Table
 
@@ -10,44 +8,60 @@ def generate_report(data):
 
     console.print("\n[bold cyan]=== OT Recon Report ===[/bold cyan]\n")
 
-    if not data:
-        console.print("[red]No devices found.[/red]")
-        return
+    table = Table(show_header=True)
 
-    table = Table(show_header=True, header_style="bold magenta")
-
-    table.add_column("IP", style="cyan")
+    table.add_column("IP")
     table.add_column("Type")
-    table.add_column("Protocols")
+    table.add_column("Vendor")
+    table.add_column("Model")
+    table.add_column("Firmware")
     table.add_column("Confidence")
+    table.add_column("Protocols")
     table.add_column("Risks")
+
+    ot_assets = 0
 
     for host in data:
 
-        host_type = host.get("type", "Unknown")
+        if host.get("type") != "Unknown":
+            ot_assets += 1
 
         protocols = ", ".join(
-            [p["protocol"] for p in host.get("ot_ports", [])]
+            [
+                p["protocol"]
+                for p in host.get("ot_ports", [])
+            ]
         ) or "-"
 
-        confidence = ", ".join(
-            [p["confidence"] for p in host.get("ot_ports", [])]
-        ) or "-"
-
-        risks = host.get("risks", [])
-
-        risk_text = (
-            "\n".join([f"[red]{r}[/red]" for r in risks])
-            if risks
-            else "[green]None[/green]"
-        )
+        risks = "\n".join(
+            host.get("risks", [])
+        ) or "None"
 
         table.add_row(
             host["ip"],
-            host_type,
+            host.get("type", "-"),
+            str(host.get("vendor", "-") or "-"),
+            str(host.get("model", "-") or "-"),
+            str(host.get("firmware", "-") or "-"),
+            host.get("confidence", "-"),
             protocols,
-            confidence,
-            risk_text
+            risks
         )
 
     console.print(table)
+
+    console.print("\n[bold]Scan Summary[/bold]")
+
+    console.print(
+        f"Hosts discovered : {len(data)}"
+    )
+
+    console.print(
+        f"OT Assets found  : {ot_assets}"
+    )
+
+    if ot_assets == 0:
+
+        console.print(
+            "[yellow]No OT-specific assets identified.[/yellow]"
+        )
