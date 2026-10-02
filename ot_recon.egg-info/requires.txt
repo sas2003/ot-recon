@@ -1,0 +1,6 @@
+pyyaml
+rich
+
+[dev]
+pytest
+pytest-cov

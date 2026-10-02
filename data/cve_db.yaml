@@ -1,0 +1,138 @@
+# =========================================================
+# OT-Recon known-vulnerability reference database
+#
+# Sourced from CISA ICS advisories / vendor PSIRT advisories.
+# This is NOT a live feed — it's a small, hand-curated set of
+# vulnerabilities relevant to components this tool can actually
+# fingerprint (model/firmware strings, exposed ports, evidence
+# strings). Re-verify against CISA/vendor advisories before acting
+# on any finding; firmware string parsing here is best-effort.
+#
+# match keys:
+#   model_contains   - list of substrings checked against host["model"]
+#   requires_port     - a port number that must be open
+#   requires_evidence - a substring that must appear in host["evidence"]
+#   firmware_lt       - if present, only a *confirmed* hit when host
+#                        firmware can be parsed and is below this version;
+#                        otherwise downgraded to an "Info" possible-match
+# =========================================================
+
+siemens:
+  - id: "CVE-2019-10943"
+    also: ["CVE-2019-10944"]
+    title: "SIMATIC S7-1500 web server CSRF/XSS/open-redirect/header-injection (SSA-232418)"
+    match:
+      model_contains: ["S7-1500", "1500"]
+      firmware_lt: "1.5.0"
+    severity: "High"
+    cvss: 6.8
+    advisory: "https://cert-portal.siemens.com/productcert/pdf/ssa-232418.pdf"
+
+  - id: "CVE-2019-10943"
+    also: ["CVE-2019-10944"]
+    title: "SIMATIC S7-1200 web server CSRF/XSS/open-redirect/header-injection (SSA-232418)"
+    match:
+      model_contains: ["S7-1200", "1200"]
+      firmware_lt: "4.0"
+    severity: "High"
+    cvss: 6.8
+    advisory: "https://cert-portal.siemens.com/productcert/pdf/ssa-232418.pdf"
+
+  - id: "CVE-2025-40943"
+    title: "SIMATIC S7-1500/ET 200SP web interface trace-file import allows code injection (ICSA-26-071-04)"
+    match:
+      model_contains: ["S7-1500", "1500", "ET 200SP", "Drive Controller"]
+    severity: "Critical"
+    cvss: 9.3
+    advisory: "https://www.cisa.gov/news-events/ics-advisories/icsa-26-071-04"
+
+  - id: "CVE-2013-Profinet-DoS"
+    title: "SIMATIC S7-1500 CPU firmware <1.5.0 DoS via crafted Profinet packets (defect-mode transition)"
+    match:
+      model_contains: ["S7-1500", "1500"]
+      firmware_lt: "1.5.0"
+    severity: "Medium"
+    cvss: 7.5
+    advisory: "https://github.com/advisories/GHSA-jmv9-4c44-h234"
+
+rockwell:
+  - id: "CVE-2022-3752"
+    title: "CompactLogix 5480 / ControlLogix 5580 / GuardLogix 5580 DoS via crafted CIP/EtherNet-IP traffic"
+    match:
+      model_contains: ["5480", "5580"]
+      firmware_lt: "32.011"
+    severity: "High"
+    cvss: 8.6
+    advisory: "https://cisa.gov/uscert/ics/advisories/icsa-22-342-03"
+
+  - id: "CVE-2019-10954"
+    also: ["CVE-2019-10952"]
+    title: "CompactLogix 5370 stack-based buffer overflow via crafted HTTP/HTTPS request (RCE/DoS)"
+    match:
+      model_contains: ["5370"]
+    severity: "Critical"
+    cvss: 8.6
+    advisory: "https://www.cisa.gov/news-events/ics-advisories/icsa-19-120-01"
+
+  - id: "CVE-2025-12011"
+    title: "CompactLogix/ControlLogix/GuardLogix 5370/5570 DoS via CIP leading to major non-recoverable fault"
+    match:
+      model_contains: ["5370", "5570"]
+      firmware_lt: "35.015"
+    severity: "Critical"
+    cvss: 9.2
+    advisory: "https://www.cisa.gov/news-events/ics-advisories/icsa-26-197-06"
+
+  - id: "CVE-2022-1161"
+    title: "Logix Designer program/compiled-code mismatch allows undetected controller logic tampering"
+    match:
+      model_contains: ["ControlLogix", "CompactLogix", "GuardLogix", "Logix"]
+    severity: "Critical"
+    cvss: 10.0
+    advisory: "https://www.cisa.gov/news-events/ics-advisories/icsa-22-090-05"
+
+br:
+  - id: "CVE-2024-8603"
+    title: "B&R Automation Runtime / mapp View <6.1 weak SSL/TLS crypto (service impersonation)"
+    match:
+      requires_evidence: "System Diagnostics Manager"
+      firmware_lt: "6.1"
+    severity: "High"
+    cvss: 7.5
+    advisory: "https://www.cisa.gov/news-events/ics-advisories/icsa-25-028-01"
+
+  - id: "CVE-2019-19108"
+    title: "B&R Automation Studio/Runtime SNMP service allows unauthenticated configuration changes (vendor states credentials cannot be changed)"
+    match:
+      requires_port: 161
+    severity: "Critical"
+    cvss: 9.4
+    advisory: "https://cisa.gov/uscert/ics/advisories/icsa-20-051-01"
+
+  - id: "CVE-2025-11044"
+    title: "B&R Automation Runtime <6.5 ANSL server component network-traffic handling vulnerability"
+    match:
+      requires_port: 11169
+      firmware_lt: "6.5"
+    severity: "High"
+    cvss: null
+    advisory: "https://www.assurantcyber.com/blog/icsa-26-125-03/"
+
+  - id: "CVE-2025-3448"
+    also: ["CVE-2025-3449", "CVE-2025-11498"]
+    title: "B&R Automation Runtime SDM <6.4 predictable session ID / XSS (unauthenticated session takeover)"
+    match:
+      requires_evidence: "System Diagnostics Manager"
+      firmware_lt: "6.4"
+    severity: "High"
+    cvss: null
+    advisory: "https://www.cisa.gov/news-events/ics-advisories/icsa-26-141-04"
+
+  - id: "SA25P002"
+    title: "B&R Automation Runtime SDM improper resource locking <6.3/<Q4.93 (unauthenticated DoS via data deletion)"
+    match:
+      requires_evidence: "System Diagnostics Manager"
+      firmware_lt: "6.3"
+    severity: "High"
+    cvss: null
+    advisory: "https://www.cisa.gov/news-events/ics-advisories/icsa-26-146-04"

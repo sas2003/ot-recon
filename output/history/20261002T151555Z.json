@@ -1,0 +1,554 @@
+{
+  "timestamp": "20261002T151555Z",
+  "host_count": 1,
+  "hosts": [
+    {
+      "ip": "127.0.0.1",
+      "ports": [
+        {
+          "port": 21,
+          "state": "open",
+          "service": "ftp",
+          "transport": "tcp"
+        },
+        {
+          "port": 22,
+          "state": "filtered",
+          "service": "ssh",
+          "transport": "tcp"
+        },
+        {
+          "port": 80,
+          "state": "open",
+          "service": "http",
+          "transport": "tcp"
+        },
+        {
+          "port": 81,
+          "state": "filtered",
+          "service": "hosts2-ns",
+          "transport": "tcp"
+        },
+        {
+          "port": 102,
+          "state": "filtered",
+          "service": "iso-tsap",
+          "transport": "tcp"
+        },
+        {
+          "port": 161,
+          "state": "filtered",
+          "service": "snmp",
+          "transport": "tcp"
+        },
+        {
+          "port": 443,
+          "state": "open",
+          "service": "https",
+          "transport": "tcp"
+        },
+        {
+          "port": 502,
+          "state": "filtered",
+          "service": "mbap",
+          "transport": "tcp"
+        },
+        {
+          "port": 2222,
+          "state": "filtered",
+          "service": "EtherNetIP-1",
+          "transport": "tcp"
+        },
+        {
+          "port": 4840,
+          "state": "filtered",
+          "service": "opcua-tcp",
+          "transport": "tcp"
+        },
+        {
+          "port": 5900,
+          "state": "filtered",
+          "service": "vnc",
+          "transport": "tcp"
+        },
+        {
+          "port": 8084,
+          "state": "filtered",
+          "service": "websnp",
+          "transport": "tcp"
+        },
+        {
+          "port": 11159,
+          "state": "filtered",
+          "service": "unknown",
+          "transport": "tcp"
+        },
+        {
+          "port": 11160,
+          "state": "filtered",
+          "service": "unknown",
+          "transport": "tcp"
+        },
+        {
+          "port": 11169,
+          "state": "filtered",
+          "service": "unknown",
+          "transport": "tcp"
+        },
+        {
+          "port": 20000,
+          "state": "filtered",
+          "service": "dnp",
+          "transport": "tcp"
+        },
+        {
+          "port": 44818,
+          "state": "filtered",
+          "service": "EtherNetIP-2",
+          "transport": "tcp"
+        },
+        {
+          "port": 50000,
+          "state": "filtered",
+          "service": "ibm-db2",
+          "transport": "tcp"
+        },
+        {
+          "port": 51000,
+          "state": "filtered",
+          "service": "unknown",
+          "transport": "tcp"
+        }
+      ],
+      "ot_ports": [
+        {
+          "port": 21,
+          "state": "open",
+          "service": "ftp",
+          "protocol": "FTP",
+          "confidence": "High",
+          "transport": "tcp"
+        },
+        {
+          "port": 22,
+          "state": "filtered",
+          "service": "ssh",
+          "protocol": "SSH",
+          "confidence": "High",
+          "transport": "tcp"
+        },
+        {
+          "port": 80,
+          "state": "open",
+          "service": "http",
+          "protocol": "HTTP",
+          "confidence": "High",
+          "transport": "tcp"
+        },
+        {
+          "port": 81,
+          "state": "filtered",
+          "service": "hosts2-ns",
+          "protocol": "B&R mapp View",
+          "confidence": "Medium",
+          "transport": "tcp"
+        },
+        {
+          "port": 102,
+          "state": "filtered",
+          "service": "iso-tsap",
+          "protocol": "S7",
+          "confidence": "High",
+          "transport": "tcp"
+        },
+        {
+          "port": 161,
+          "state": "filtered",
+          "service": "snmp",
+          "protocol": "SNMP",
+          "confidence": "High",
+          "transport": "tcp"
+        },
+        {
+          "port": 443,
+          "state": "open",
+          "service": "https",
+          "protocol": "HTTPS",
+          "confidence": "High",
+          "transport": "tcp"
+        },
+        {
+          "port": 502,
+          "state": "filtered",
+          "service": "mbap",
+          "protocol": "Modbus",
+          "confidence": "High",
+          "transport": "tcp"
+        },
+        {
+          "port": 2222,
+          "state": "filtered",
+          "service": "EtherNetIP-1",
+          "protocol": "EtherNet/IP-IO",
+          "confidence": "Medium",
+          "transport": "tcp"
+        },
+        {
+          "port": 4840,
+          "state": "filtered",
+          "service": "opcua-tcp",
+          "protocol": "OPC UA",
+          "confidence": "Medium",
+          "transport": "tcp"
+        },
+        {
+          "port": 5900,
+          "state": "filtered",
+          "service": "vnc",
+          "protocol": "VNC",
+          "confidence": "High",
+          "transport": "tcp"
+        },
+        {
+          "port": 8084,
+          "state": "filtered",
+          "service": "websnp",
+          "protocol": "B&R mapp Cockpit",
+          "confidence": "Medium",
+          "transport": "tcp"
+        },
+        {
+          "port": 11159,
+          "state": "filtered",
+          "service": "unknown",
+          "protocol": "B&R PVI",
+          "confidence": "Medium",
+          "transport": "tcp"
+        },
+        {
+          "port": 11160,
+          "state": "filtered",
+          "service": "unknown",
+          "protocol": "B&R PVI",
+          "confidence": "Medium",
+          "transport": "tcp"
+        },
+        {
+          "port": 11169,
+          "state": "filtered",
+          "service": "unknown",
+          "protocol": "B&R ANSL",
+          "confidence": "Medium",
+          "transport": "tcp"
+        },
+        {
+          "port": 20000,
+          "state": "filtered",
+          "service": "dnp",
+          "protocol": "DNP3",
+          "confidence": "Medium",
+          "transport": "tcp"
+        },
+        {
+          "port": 44818,
+          "state": "filtered",
+          "service": "EtherNetIP-2",
+          "protocol": "EtherNet/IP",
+          "confidence": "High",
+          "transport": "tcp"
+        },
+        {
+          "port": 50000,
+          "state": "filtered",
+          "service": "ibm-db2",
+          "protocol": "B&R SafeDESIGNER",
+          "confidence": "Medium",
+          "transport": "tcp"
+        },
+        {
+          "port": 51000,
+          "state": "filtered",
+          "service": "unknown",
+          "protocol": "B&R SafeDESIGNER",
+          "confidence": "Medium",
+          "transport": "tcp"
+        }
+      ],
+      "services": [
+        {
+          "port": 21,
+          "transport": "tcp",
+          "state": "open",
+          "service": "ftp",
+          "protocol": "FTP",
+          "category": "it",
+          "confidence": "High",
+          "authentication": "cleartext",
+          "version": null
+        },
+        {
+          "port": 22,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "ssh",
+          "protocol": "SSH",
+          "category": "it",
+          "confidence": "High",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 80,
+          "transport": "tcp",
+          "state": "open",
+          "service": "http",
+          "protocol": "HTTP",
+          "category": "it",
+          "confidence": "High",
+          "authentication": "cleartext",
+          "version": null
+        },
+        {
+          "port": 81,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "hosts2-ns",
+          "protocol": "B&R mapp View",
+          "category": "ot",
+          "confidence": "Medium",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 102,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "iso-tsap",
+          "protocol": "S7",
+          "category": "ot",
+          "confidence": "High",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 161,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "snmp",
+          "protocol": "SNMP",
+          "category": "it",
+          "confidence": "High",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 443,
+          "transport": "tcp",
+          "state": "open",
+          "service": "https",
+          "protocol": "HTTPS",
+          "category": "it",
+          "confidence": "High",
+          "authentication": "encrypted",
+          "version": null
+        },
+        {
+          "port": 502,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "mbap",
+          "protocol": "Modbus",
+          "category": "ot",
+          "confidence": "High",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 2222,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "EtherNetIP-1",
+          "protocol": "EtherNet/IP-IO",
+          "category": "ot",
+          "confidence": "Medium",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 4840,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "opcua-tcp",
+          "protocol": "OPC UA",
+          "category": "ot",
+          "confidence": "Medium",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 5900,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "vnc",
+          "protocol": "VNC",
+          "category": "it",
+          "confidence": "High",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 8084,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "websnp",
+          "protocol": "B&R mapp Cockpit",
+          "category": "ot",
+          "confidence": "Medium",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 11159,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "unknown",
+          "protocol": "B&R PVI",
+          "category": "ot",
+          "confidence": "Medium",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 11160,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "unknown",
+          "protocol": "B&R PVI",
+          "category": "ot",
+          "confidence": "Medium",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 11169,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "unknown",
+          "protocol": "B&R ANSL",
+          "category": "ot",
+          "confidence": "Medium",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 20000,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "dnp",
+          "protocol": "DNP3",
+          "category": "ot",
+          "confidence": "Medium",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 44818,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "EtherNetIP-2",
+          "protocol": "EtherNet/IP",
+          "category": "ot",
+          "confidence": "High",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 50000,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "ibm-db2",
+          "protocol": "B&R SafeDESIGNER",
+          "category": "ot",
+          "confidence": "Medium",
+          "authentication": "none",
+          "version": null
+        },
+        {
+          "port": 51000,
+          "transport": "tcp",
+          "state": "filtered",
+          "service": "unknown",
+          "protocol": "B&R SafeDESIGNER",
+          "category": "ot",
+          "confidence": "Medium",
+          "authentication": "none",
+          "version": null
+        }
+      ],
+      "evidence": [
+        "Title: 404 Not Found",
+        "B&R Automation Studio/ANSL port open (11169)",
+        "B&R PVI legacy port open (11159)",
+        "B&R PVI fast-transfer port open (11160)",
+        "B&R SafeDESIGNER port open (50000)",
+        "B&R SafeDESIGNER secondary port open (51000)",
+        "B&R mapp Cockpit port open (8084)"
+      ],
+      "vendor": "B&R Automation (unconfirmed - port signature only)",
+      "model": null,
+      "firmware": null,
+      "fingerprint_method": "port_signature",
+      "type": "Safety PLC",
+      "confidence": "High",
+      "detection_method": "active_probe",
+      "evidence_based": true,
+      "confidence_score": 80,
+      "risks": [
+        {
+          "finding": "FTP open (insecure protocol)",
+          "severity": "Medium",
+          "cve": null,
+          "advisory": null,
+          "impact": "Medium",
+          "likelihood": "High",
+          "recommendation": "Disable FTP service and replace with SFTP or HTTPS; ensure anonymous access is disabled.",
+          "remediation_priority": "P3",
+          "related_ports": [
+            21
+          ]
+        },
+        {
+          "finding": "HTTP open (unencrypted web interface)",
+          "severity": "Low",
+          "cve": null,
+          "advisory": null,
+          "impact": "Low",
+          "likelihood": "Medium",
+          "recommendation": "Migrate management interfaces to HTTPS (TLS) and disable plaintext HTTP.",
+          "remediation_priority": "P4",
+          "related_ports": [
+            80
+          ]
+        },
+        {
+          "finding": "Multiple services exposed (larger attack surface)",
+          "severity": "Low",
+          "cve": null,
+          "advisory": null,
+          "impact": "Low",
+          "likelihood": "Medium",
+          "recommendation": "Disable unnecessary network services according to the principle of least functionality.",
+          "remediation_priority": "P4",
+          "related_ports": [
+            21,
+            80,
+            443
+          ]
+        }
+      ],
+      "risk_severity": "Medium",
+      "risk_score": 21,
+      "summary": "B&R Automation (unconfirmed - port signature only) Safety PLC assessed with Medium severity (risk score: 21/100) across 3 finding(s) (1 Medium, 2 Low). Primary concern: FTP open (insecure protocol). Recommended action: Disable FTP service and replace with SFTP or HTTPS; ensure anonymous access is disabled."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+Metadata-Version: 2.4
+Name: ot-recon
+Version: 1.2
+Requires-Dist: pyyaml
+Requires-Dist: rich
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"
+Dynamic: provides-extra
+Dynamic: requires-dist

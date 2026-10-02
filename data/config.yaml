@@ -1,0 +1,42 @@
+# =========================================================
+# OT-Recon configuration
+#
+# Edit this file directly to change defaults for every scan, or pass
+# --config /path/to/site.yaml to layer site-specific overrides on top
+# (you only need to include the keys you want to change).
+#
+# CLI flags always win over both: e.g. `--workers 20` overrides whatever
+# is set here for that one run.
+# =========================================================
+
+scan:
+  # Ports scanned by the initial targeted TCP pass. Keep in sync with
+  # data/ports.yaml if you add/remove vendor protocols.
+  tcp_ports: "21,22,80,81,102,161,443,502,2222,4840,5900,8084,11159,11160,11169,20000,44818,50000,51000"
+
+  # UDP-only OT ports (EtherNet/IP implicit I/O, SNMP), only scanned when
+  # --udp is passed (requires root/sudo).
+  udp_ports: "161,2222"
+
+  # Nmap timing templates (T0 paranoid .. T5 insane). T5 is fast but noisy;
+  # drop to T3 on fragile/legacy OT networks where flooding matters.
+  tcp_timing: "T5"
+  udp_timing: "T4"
+
+fingerprint:
+  # Concurrent workers for the fingerprinting stage (thread pool).
+  workers: 10
+
+  # Per-nmap-script timeout, in seconds, for Siemens/Rockwell probes.
+  nmap_script_timeout: 30
+
+  # Per-request timeout, in seconds, for B&R HTTP-based probes (SDM/mapp).
+  
+
+output:
+  # Default output format: table | json | csv | all
+  format: "table"
+
+  # Default base path (no extension) for exported reports.
+  # null = output/report.<ext>
+  outfile: null
