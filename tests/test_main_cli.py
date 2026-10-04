@@ -62,7 +62,10 @@ def test_no_command_prints_help(capsys):
     with patch.object(sys, "argv", ["ot-recon"]):
         main_module.main()
 
-    assert "usage" in capsys.readouterr().out.lower()
+    out = capsys.readouterr().out
+    assert "scan" in out.lower()
+    assert "diff" in out.lower()
+    assert "history" in out.lower()
 
 
 def test_default_scan_runs_full_pipeline_in_order(tmp_path):

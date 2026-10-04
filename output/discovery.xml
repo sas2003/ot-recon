@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
 <?xml-stylesheet href="file:///C:/Program Files (x86)/Nmap/nmap.xsl" type="text/xsl"?>
-<!-- Nmap 7.94 scan initiated Fri Oct  2 21:12:38 2026 as: nmap -sn -oX D:\\Tool\\ot-recon-work\\output\\discovery.xml 127.0.0.1 -->
-<nmaprun scanner="nmap" args="nmap -sn -oX D:\\Tool\\ot-recon-work\\output\\discovery.xml 127.0.0.1" start="1790955758" startstr="Fri Oct  2 21:12:38 2026" version="7.94" xmloutputversion="1.05">
+<!-- Nmap 7.94 scan initiated Sat Oct  3 14:09:13 2026 as: nmap -sn -oX D:\\Tool\\ot-recon-work\\output\\discovery.xml 192.168.1.1 -->
+<nmaprun scanner="nmap" args="nmap -sn -oX D:\\Tool\\ot-recon-work\\output\\discovery.xml 192.168.1.1" start="1791016753" startstr="Sat Oct  3 14:09:13 2026" version="7.94" xmloutputversion="1.05">
 <verbose level="0"/>
 <debugging level="0"/>
-<host><status state="up" reason="localhost-response" reason_ttl="0"/>
-<address addr="127.0.0.1" addrtype="ipv4"/>
+<host><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.1.1" addrtype="ipv4"/>
+<address addr="6C:4F:89:F2:6F:71" addrtype="mac"/>
 <hostnames>
-<hostname name="kubernetes.docker.internal" type="PTR"/>
 </hostnames>
+<times srtt="3000" rttvar="5000" to="100000"/>
 </host>
-<runstats><finished time="1790955758" timestr="Fri Oct  2 21:12:38 2026" summary="Nmap done at Fri Oct  2 21:12:38 2026; 1 IP address (1 host up) scanned in 0.52 seconds" elapsed="0.52" exit="success"/><hosts up="1" down="0" total="1"/>
+<runstats><finished time="1791016755" timestr="Sat Oct  3 14:09:15 2026" summary="Nmap done at Sat Oct  3 14:09:15 2026; 1 IP address (1 host up) scanned in 2.73 seconds" elapsed="2.73" exit="success"/><hosts up="1" down="0" total="1"/>
 </runstats>
 </nmaprun>

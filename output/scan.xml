@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
 <?xml-stylesheet href="file:///C:/Program Files (x86)/Nmap/nmap.xsl" type="text/xsl"?>
-<!-- Nmap 7.94 scan initiated Fri Oct  2 21:12:39 2026 as: nmap -n -T5 -p 21,22,80,81,102,161,443,502,2222,4840,5900,8084,11159,11160,11169,20000,44818,50000,51000 -sT -oX D:\\Tool\\ot-recon-work\\output\\scan.xml 127.0.0.1 -->
-<nmaprun scanner="nmap" args="nmap -n -T5 -p 21,22,80,81,102,161,443,502,2222,4840,5900,8084,11159,11160,11169,20000,44818,50000,51000 -sT -oX D:\\Tool\\ot-recon-work\\output\\scan.xml 127.0.0.1" start="1790955759" startstr="Fri Oct  2 21:12:39 2026" version="7.94" xmloutputversion="1.05">
+<!-- Nmap 7.94 scan initiated Sat Oct  3 14:09:15 2026 as: nmap -n -T5 -p 21,22,80,81,102,161,443,502,2222,4840,5900,8084,11159,11160,11169,20000,44818,50000,51000 -sT -oX D:\\Tool\\ot-recon-work\\output\\scan.xml 192.168.1.1 -->
+<nmaprun scanner="nmap" args="nmap -n -T5 -p 21,22,80,81,102,161,443,502,2222,4840,5900,8084,11159,11160,11169,20000,44818,50000,51000 -sT -oX D:\\Tool\\ot-recon-work\\output\\scan.xml 192.168.1.1" start="1791016755" startstr="Sat Oct  3 14:09:15 2026" version="7.94" xmloutputversion="1.05">
 <scaninfo type="connect" protocol="tcp" numservices="19" services="21-22,80-81,102,161,443,502,2222,4840,5900,8084,11159-11160,11169,20000,44818,50000,51000"/>
 <verbose level="0"/>
 <debugging level="0"/>
-<host starttime="1790955759" endtime="1790955760"><status state="up" reason="localhost-response" reason_ttl="0"/>
-<address addr="127.0.0.1" addrtype="ipv4"/>
+<hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.1.1" addrtype="ipv4"/>
+<address addr="6C:4F:89:F2:6F:71" addrtype="mac"/>
 <hostnames>
 </hostnames>
-<ports><port protocol="tcp" portid="21"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ftp" method="table" conf="3"/></port>
+</hosthint>
+<host starttime="1791016757" endtime="1791016758"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.1.1" addrtype="ipv4"/>
+<address addr="6C:4F:89:F2:6F:71" addrtype="mac"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="21"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ftp" method="table" conf="3"/></port>
 <port protocol="tcp" portid="22"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
 <port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
 <port protocol="tcp" portid="81"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="hosts2-ns" method="table" conf="3"/></port>
@@ -30,8 +37,8 @@
 <port protocol="tcp" portid="50000"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ibm-db2" method="table" conf="3"/></port>
 <port protocol="tcp" portid="51000"><state state="filtered" reason="no-response" reason_ttl="0"/></port>
 </ports>
-<times srtt="1669" rttvar="2604" to="50000"/>
+<times srtt="3125" rttvar="2359" to="50000"/>
 </host>
-<runstats><finished time="1790955760" timestr="Fri Oct  2 21:12:40 2026" summary="Nmap done at Fri Oct  2 21:12:40 2026; 1 IP address (1 host up) scanned in 1.64 seconds" elapsed="1.64" exit="success"/><hosts up="1" down="0" total="1"/>
+<runstats><finished time="1791016758" timestr="Sat Oct  3 14:09:18 2026" summary="Nmap done at Sat Oct  3 14:09:18 2026; 1 IP address (1 host up) scanned in 3.21 seconds" elapsed="3.21" exit="success"/><hosts up="1" down="0" total="1"/>
 </runstats>
 </nmaprun>

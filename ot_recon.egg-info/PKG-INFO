@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: ot-recon
-Version: 1.2
+Version: 2.0.0
 Requires-Dist: pyyaml
 Requires-Dist: rich
 Provides-Extra: dev

@@ -98,7 +98,7 @@ def generate_report(data):
             score = host.get("risk_score", 0)
             console.print(
                 f"\n[bold]{host['ip']}[/bold] ({host.get('type', '-')}, {host.get('vendor') or 'vendor unknown'}) "
-                f"— [bold]Risk Score: {score}/100[/bold]"
+                f"- [bold]Risk Score: {score}/100[/bold]"
             )
             if host.get("summary"):
                 console.print(f"  [italic dim]{host['summary']}[/italic dim]")
@@ -123,7 +123,7 @@ def generate_report(data):
                 if r.get("cve"):
                     line += f"\n        [dim]Ref: {r['cve']}"
                     if r.get("advisory"):
-                        line += f" — {r['advisory']}"
+                        line += f" - {r['advisory']}"
                     line += "[/dim]"
 
                 console.print(line)
@@ -159,7 +159,7 @@ def generate_diff_report(diff, old_ts=None, new_ts=None):
 
     header = "=== OT Recon Diff Report ==="
     if old_ts and new_ts:
-        header += f"\n{old_ts}  →  {new_ts}"
+        header += f"\n{old_ts}  ->  {new_ts}"
 
     console.print(f"\n[bold cyan]{header}[/bold cyan]\n")
 
@@ -187,14 +187,14 @@ def generate_diff_report(diff, old_ts=None, new_ts=None):
                 new_style = SEVERITY_STYLE.get(new_sev, "white")
                 console.print(
                     f"  Risk severity: [{old_style}]{old_sev}[/{old_style}] "
-                    f"→ [{new_style}]{new_sev}[/{new_style}]"
+                    f"-> [{new_style}]{new_sev}[/{new_style}]"
                 )
 
             for field in ("vendor", "model", "firmware"):
                 key = f"{field}_change"
                 if key in change:
                     old_val, new_val = change[key]
-                    console.print(f"  {field.capitalize()}: {old_val or '-'} → {new_val or '-'}")
+                    console.print(f"  {field.capitalize()}: {old_val or '-'} -> {new_val or '-'}")
 
             if change.get("new_ports"):
                 ports = ", ".join(f"{p}/{t}" for p, t in change["new_ports"])
