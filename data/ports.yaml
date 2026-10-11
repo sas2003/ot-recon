@@ -1,0 +1,87 @@
+# =========================================================
+# OT-Recon Port Map
+# Grouped by vendor / protocol family.
+# "protocol" values must match SERVICE_MAP / classifier / risk
+# engine strings exactly (see enricher.py, classifier.py, risk.py)
+# =========================================================
+
+# ---- Generic IT / access ports ----
+21:
+  protocol: "FTP"
+  desc: "File Transfer Protocol"
+
+22:
+  protocol: "SSH"
+  desc: "Secure Shell"
+
+80:
+  protocol: "HTTP"
+  desc: "Hyper Text Transfer Protocol (also serves Siemens web UI, B&R SDM at /sdm)"
+
+443:
+  protocol: "HTTPS"
+  desc: "HTTP over TLS (encrypted web UI)"
+
+161:
+  protocol: "SNMP"
+  desc: "Simple Network Management Protocol (device/vendor info leakage risk)"
+
+5900:
+  protocol: "VNC"
+  desc: "Virtual Network Computing (remote HMI/desktop access)"
+
+# ---- Siemens ----
+102:
+  protocol: "S7"
+  desc: "Siemens S7comm / S7comm-plus PLC communication"
+
+# ---- Rockwell / Allen-Bradley ----
+44818:
+  protocol: "EtherNet/IP"
+  desc: "Rockwell/ODVA EtherNet/IP explicit messaging (TCP)"
+
+2222:
+  protocol: "EtherNet/IP-IO"
+  desc: "Rockwell/ODVA EtherNet/IP implicit I/O messaging (UDP, cyclic)"
+
+# ---- Generic / multi-vendor OT protocols ----
+502:
+  protocol: "Modbus"
+  desc: "Modbus TCP"
+
+4840:
+  protocol: "OPC UA"
+  desc: "OPC Unified Architecture"
+
+20000:
+  protocol: "DNP3"
+  desc: "Distributed Network Protocol 3 (SCADA)"
+
+# ---- B&R Automation ----
+11159:
+  protocol: "B&R PVI"
+  desc: "B&R PVI legacy channel (Power Panel / INA2000 line)"
+
+11160:
+  protocol: "B&R PVI"
+  desc: "B&R PVI fast-transfer channel (program/firmware download)"
+
+11169:
+  protocol: "B&R ANSL"
+  desc: "B&R Automation Studio online connection (ANSL protocol, modern PVI/AS)"
+
+50000:
+  protocol: "B&R SafeDESIGNER"
+  desc: "B&R SafeDESIGNER safety-PLC programming channel"
+
+51000:
+  protocol: "B&R SafeDESIGNER"
+  desc: "B&R SafeDESIGNER safety-PLC secondary channel"
+
+81:
+  protocol: "B&R mapp View"
+  desc: "B&R mapp View web-based HMI/visualization"
+
+8084:
+  protocol: "B&R mapp Cockpit"
+  desc: "B&R mapp Cockpit web dashboard"

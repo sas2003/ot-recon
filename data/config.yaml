@@ -1,0 +1,111 @@
+# =========================================================
+# OT-Recon configuration
+#
+# Edit this file directly to change defaults for every scan, or pass
+# --config /path/to/site.yaml to layer site-specific overrides on top
+# (you only need to include the keys you want to change).
+#
+# CLI flags always win over both: e.g. `--workers 20` overrides whatever
+# is set here for that one run.
+# =========================================================
+
+scan:
+  # Ports scanned by the initial targeted TCP pass. Keep in sync with
+  # data/ports.yaml if you add/remove vendor protocols.
+  tcp_ports: "21,22,80,81,102,161,443,502,2222,4840,5900,8084,11159,11160,11169,20000,44818,50000,51000"
+
+  # UDP-only OT ports (EtherNet/IP implicit I/O, SNMP), only scanned when
+  # --udp is passed (requires root/sudo).
+  udp_ports: "161,2222"
+
+  # How hard to lean on the network - one word instead of five flags:
+  #   safe      polite timing (T2), 200ms between probes, 1 retry, minimal
+  #             service-detection probing, 2 fingerprint workers  [DEFAULT]
+  #   standard  nmap default timing (T3), 5 workers
+  #   fast      the original aggressive behaviour (T5 TCP / T4 UDP, 10 workers)
+  # Legacy OT controllers can have very few connection slots - start with
+  # "safe" on a live control network. Details live under `profiles:` below.
+  # Override per run with --profile.
+  profile: "safe"
+
+  # Optional: force a specific nmap timing template (T0..T5) regardless of
+  # profile. Leave null to let the profile decide.
+  tcp_timing: null
+  udp_timing: null
+
+  # Auto-detect and exclude this machine's own IP address(es) from the
+  # scan, so your own PC doesn't show up as a "discovered asset" every
+  # time it happens to fall inside the target subnet. Override per-run
+  # with --include-self if you genuinely want to include it.
+  exclude_self: true
+
+fingerprint:
+  # Both null by default = the scan profile decides. Set a number to force
+  # it regardless of profile (CLI --workers still wins over this).
+  #
+  # workers: concurrent fingerprinting threads.
+  # nmap_script_timeout: seconds per vendor probe (s7-info, enip-info,
+  #                      br-info.nse).
+  workers: null
+  nmap_script_timeout: null
+
+# The built-in profiles. Uncomment and edit only what you want to change,
+# e.g. to make "safe" even gentler on a fragile plant network:
+#
+# profiles:
+#   safe:
+#     workers: 1
+#     scan_delay: "500ms"
+
+scope:
+  # POLICY allowlist. If set, a scan whose target is not entirely inside
+  # one of these networks is refused - and --force can NOT override it.
+  # Use it to make "scan the wrong subnet by accident" impossible.
+  #   allowed: ["192.168.10.0/24", "10.20.0.0/16"]
+  allowed: []
+
+  # Never scanned, in addition to this machine itself. For fragile or
+  # safety-critical devices the asset owner has asked you to leave alone.
+  #   exclude: ["192.168.10.5", "192.168.10.64/28"]
+  exclude: []
+
+  # Sanity limit: targets expanding to more addresses than this are refused
+  # unless --force is passed (a typo like /8 instead of /24).
+  max_addresses: 1024
+
+audit:
+  # Record every command the tool runs (exact nmap arguments, timing,
+  # outcome) to output/audit/scan_<timestamp>.jsonl, so you can answer
+  # "what exactly did your tool send to my network?".
+  enabled: true
+
+output:
+  # Default output format: table | json | csv | all
+  format: "table"
+
+  # Default base path (no extension) for exported reports.
+  # null = output/report.<ext>
+  outfile: null
+
+cve:
+  # Local curated correlation (data/cve_db.yaml) always runs regardless
+  # of this setting. This only controls an OPTIONAL supplementary live
+  # lookup against the NVD CVE API - off by default so the tool stays
+  # fully offline-capable with zero behavior change unless you turn it on.
+  #
+  # Needs `pip install -e ".[cve-live]"` (installs requests).
+  live_lookup: false
+
+  # NVD API key - get one free at https://nvd.nist.gov/developers/request-an-api-key
+  # Strongly prefer the NVD_API_KEY environment variable instead of
+  # putting a real key in this file (which may end up in version
+  # control). The env var always takes priority if both are set.
+  api_key: null
+
+  # How long a live NVD result stays cached (output/cve_cache.json)
+  # before being re-queried. Keeps a /24 scan of the same product family
+  # from re-querying NVD on every run.
+  cache_ttl_days: 7
+
+  # Per-request timeout, in seconds, for the live NVD HTTP call.
+  request_timeout: 10

@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+*.egg-info/
+build/
+dist/
+.env
+
+# Generated scan output (contains asset and vulnerability data - don't commit)
+output/
+*.xml
