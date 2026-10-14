@@ -9,6 +9,8 @@
 # exactly one implementation of the actual logic; this file only adds a
 # GooeyParser-based argument form on top of it.
 
+import sys
+
 from gooey import Gooey, GooeyParser
 
 from ot_recon.main import run_scan, run_diff, run_history, run_report
@@ -132,6 +134,7 @@ def make_gui_parser():
     program_description="OT Network Reconnaissance Tool",
     default_size=(900, 700),
     tabbed_groups=True,
+    target=f'"{sys.executable}" -u -m ot_recon.gui',
     # ot-recon's fingerprinter already prints "Fingerprinted N/M (ip)" as
     # each host finishes - Gooey can turn that straight into a real
     # progress bar with no changes to the scanning code itself.

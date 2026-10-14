@@ -1,13 +1,16 @@
 from ot_recon.core.classifier import classify
 
 
-def _host(evidence=None, protocols=None, vendor=None):
-    return {
+def _host(evidence=None, protocols=None, vendor=None, model=None):
+    h = {
         "ip": "10.0.0.1",
         "evidence": evidence or [],
         "vendor": vendor,
         "ot_ports": [{"protocol": p} for p in (protocols or [])],
     }
+    if model:
+        h["model"] = model
+    return h
 
 
 def test_siemens_hmi_evidence():
@@ -193,3 +196,70 @@ def test_filtered_protocols_do_not_trigger_fallback_classification():
     assert result["confidence_score"] == 20
     assert result["detection_method"] == "none"
     assert result["evidence_based"] is False
+
+
+def test_rockwell_communications_adapter_evidence_classified_as_field_device():
+    data = [_host(
+        evidence=["Device Type: Communications Adapter (12)"],
+        protocols=["EtherNet/IP"],
+    )]
+    result = classify(data)
+    assert result[0]["type"] == "Field Device"
+    assert result[0]["confidence"] == "Very High"
+    assert result[0]["confidence_score"] == 95
+    assert result[0]["detection_method"] == "active_probe"
+    assert result[0]["evidence_based"] is True
+
+
+def test_rockwell_adapter_model_classified_as_field_device_without_device_type_evidence():
+    data = [_host(
+        model="1756-EN2T/B",
+        protocols=["EtherNet/IP"],
+    )]
+    result = classify(data)
+    assert result[0]["type"] == "Field Device"
+    assert result[0]["confidence"] == "High"
+    assert result[0]["confidence_score"] == 80
+    assert result[0]["detection_method"] == "active_probe"
+    assert result[0]["evidence_based"] is True
+
+
+def test_rockwell_point_io_adapter_classified_as_field_device():
+    data = [_host(
+        model="1734-AENT",
+        protocols=["EtherNet/IP"],
+    )]
+    result = classify(data)
+    assert result[0]["type"] == "Field Device"
+    assert result[0]["confidence"] == "High"
+
+
+def test_rockwell_ac_drive_evidence_classified_as_field_device():
+    data = [_host(
+        evidence=["Device Type: AC Drive (2)"],
+        protocols=["EtherNet/IP"],
+    )]
+    result = classify(data)
+    assert result[0]["type"] == "Field Device"
+    assert result[0]["confidence"] == "Very High"
+
+
+def test_rockwell_guardlogix_classified_as_safety_plc():
+    data = [_host(
+        model="1756-L72S GuardLogix",
+        protocols=["EtherNet/IP"],
+    )]
+    result = classify(data)
+    assert result[0]["type"] == "Safety PLC"
+    assert result[0]["confidence"] == "High"
+
+
+def test_rockwell_panelview_classified_as_hmi():
+    data = [_host(
+        model="2711P-T10C4D8 PanelView Plus 7",
+        protocols=["EtherNet/IP"],
+    )]
+    result = classify(data)
+    assert result[0]["type"] == "HMI"
+    assert result[0]["confidence"] == "Very High"
+

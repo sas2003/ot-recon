@@ -5,6 +5,8 @@
 # Industrial Server, Unknown). Provides quantitative confidence scores (0-100)
 # and explicit detection_method / evidence_based metadata.
 
+import re
+
 CONTROLLED_TYPES = [
     "PLC",
     "Safety PLC",
@@ -45,11 +47,24 @@ def classify(data):
         # Evidence-based classification (Active Probes / Deep Fingerprints)
         #
 
-        if any("SIMATIC HMI" in e for e in evidence) or any(
-            "Human-Machine Interface" in e for e in evidence
+        if (
+            any("SIMATIC HMI" in e for e in evidence)
+            or any("Human-Machine Interface" in e for e in evidence)
+            or any("PanelView" in e for e in evidence)
+            or (host.get("model") and "panelview" in str(host["model"]).lower())
         ):
             host["type"] = "HMI"
             host["confidence"] = "Very High"
+            host["detection_method"] = "active_probe"
+            host["evidence_based"] = True
+
+        elif (
+            any("SafeDESIGNER" in e for e in evidence)
+            or any("GuardLogix" in e for e in evidence)
+            or (host.get("model") and "guardlogix" in str(host["model"]).lower())
+        ):
+            host["type"] = "Safety PLC"
+            host["confidence"] = "High"
             host["detection_method"] = "active_probe"
             host["evidence_based"] = True
 
@@ -61,15 +76,34 @@ def classify(data):
             host["detection_method"] = "active_probe"
             host["evidence_based"] = True
 
-        #
-        # B&R Automation (evidence-based)
-        #
+        elif any(
+            re.search(
+                r"Communication[s]?\s+Adapter|Ethernet\s+Adapter|Network\s+Adapter|AC\s+Drive|Motor\s+Drive|Discrete\s+I/O",
+                e,
+                re.IGNORECASE,
+            )
+            for e in evidence
+        ):
+            host["type"] = "Field Device"
+            host["confidence"] = "Very High"
+            host["detection_method"] = "active_probe"
+            host["evidence_based"] = True
 
-        elif any("SafeDESIGNER" in e for e in evidence):
-            host["type"] = "Safety PLC"
+        elif (
+            host.get("model")
+            and (
+                re.search(r"\b17\d\d-(?:AENT|AENTR|EN2T|EN2TR|EN3T|EN3TR|ENBT|ENET|EWEB|ENTR)\b", str(host["model"]), re.IGNORECASE)
+                or re.search(r"\b(?:adapter|ethernet\s*adapter|comm\w*\s*adapter)\b", str(host["model"]), re.IGNORECASE)
+            )
+        ):
+            host["type"] = "Field Device"
             host["confidence"] = "High"
             host["detection_method"] = "active_probe"
             host["evidence_based"] = True
+
+        #
+        # B&R Automation (evidence-based)
+        #
 
         elif any("mapp View" in e for e in evidence):
             host["type"] = "HMI"

@@ -150,3 +150,15 @@ def test_gui_does_not_enable_richtext_console():
     source = inspect.getsource(gui)
     code_lines = [l for l in source.splitlines() if not l.strip().startswith("#")]
     assert not any("richtext_controls" in l for l in code_lines)
+
+
+def test_gui_sets_module_target_for_global_invocation():
+    """Gooey defaults to sys.argv[0] as the command target when spawning its
+    subprocess. On Windows, entry_point executables (Scripts/ot-recon-gui.exe)
+    set sys.argv[0] to an extensionless path that does not exist on disk,
+    causing python.exe to fail with [Errno 2] No such file or directory.
+    Setting target to run via -m ot_recon.gui ensures it works globally."""
+    rg = gui.build_gui_parser.__closure__[1].cell_contents
+    gooey_params = [c.cell_contents for c in rg.__closure__ if isinstance(c.cell_contents, dict)][0]
+    assert "-m ot_recon.gui" in gooey_params.get("target", "")
+
