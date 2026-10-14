@@ -108,4 +108,5 @@ cve:
   cache_ttl_days: 7
 
   # Per-request timeout, in seconds, for the live NVD HTTP call.
-  request_timeout: 10
+  # NVD API 2.0 responses can take 15-30+ seconds during peak load.
+  request_timeout: 30

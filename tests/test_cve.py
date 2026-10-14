@@ -285,6 +285,20 @@ def test_live_lookup_queries_nvd_on_cache_miss_and_caches_result(isolated_db):
     assert live_findings[0]["cve"] == "CVE-LIVE-2"
 
 
+def test_live_lookup_uses_default_30s_timeout_when_not_specified():
+    host = {
+        "vendor": "Siemens", "model": "S7-1500", "firmware": "1.2.0",
+        "evidence": [], "ot_ports": [],
+    }
+    with patch.object(cve_module.cve_cache, "get_cached", return_value=None), \
+         patch.object(cve_module.cve_cache, "set_cached"), \
+         patch.object(cve_module.nvd_client, "query_nvd", return_value=[]) as mock_query:
+        cve_module.correlate(host, cve_config={"live_lookup": True})
+
+    mock_query.assert_called_once_with("Siemens", "S7-1500", api_key=None, timeout=30)
+
+
+
 def test_live_lookup_dedupes_against_local_db_cve_ids(isolated_db):
     """A live NVD result for the same CVE already covered by a curated
     local_db entry must not be duplicated in the output."""

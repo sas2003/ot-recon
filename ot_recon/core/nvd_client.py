@@ -142,7 +142,7 @@ def _model_tokens(model):
     return [t for t in raw if len(t) >= 3 and t.lower() not in STOPWORDS]
 
 
-def query_nvd(vendor, model, api_key=None, timeout=10, max_results=20):
+def query_nvd(vendor, model, api_key=None, timeout=30, max_results=20):
     """Query NVD for CVEs plausibly affecting `vendor`/`model`, cross-
     validated against each candidate's own CPE configuration data.
 

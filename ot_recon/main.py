@@ -93,6 +93,10 @@ def build_parser():
              "rate limits. Default: from config (cve.live_lookup)."
     )
     scan_p.add_argument(
+        "--cve-timeout", type=int, default=None,
+        help="Per-request HTTP timeout in seconds for live NVD API lookups (default: from config, 30s)."
+    )
+    scan_p.add_argument(
         "--profile", type=str, default=None,
         help="How hard to lean on the network: safe (default, gentle), standard, or fast "
              "(the original aggressive timing). Default: from config (scan.profile)."
@@ -229,6 +233,8 @@ def run_scan(args):
     cve_config = dict(config["cve"])
     if args.cve_live is not None:
         cve_config["live_lookup"] = args.cve_live
+    if getattr(args, "cve_timeout", None) is not None:
+        cve_config["request_timeout"] = args.cve_timeout
 
     exclude_self = config["scan"]["exclude_self"] and not args.include_self
 

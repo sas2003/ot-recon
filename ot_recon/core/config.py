@@ -67,7 +67,7 @@ _DEFAULTS = {
         # file; this stays None here on purpose (see load_config()).
         "api_key": None,
         "cache_ttl_days": 7,
-        "request_timeout": 10,
+        "request_timeout": 30,
     },
 }
 

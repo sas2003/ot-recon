@@ -280,7 +280,7 @@ def _correlate_live(host, cve_config, known_cve_ids, verbose=False):
             raw_results = nvd_client.query_nvd(
                 vendor, query_model,
                 api_key=cve_config.get("api_key"),
-                timeout=cve_config.get("request_timeout", 10),
+                timeout=cve_config.get("request_timeout", 30),
             )
             cve_cache.set_cached(vendor, query_model, raw_results)
             _set_status(host, "live", state="queried", results=len(raw_results))

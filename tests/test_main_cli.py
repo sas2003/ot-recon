@@ -640,3 +640,11 @@ def test_report_missing_or_corrupt_snapshot_is_a_clear_message(tmp_path, capsys)
     m = _run_report(["--snapshot", str(bad)], tmp_path)
     assert "not valid JSON" in capsys.readouterr().out
     m.assert_not_called()
+
+
+def test_cli_cve_timeout_overrides_config_timeout(tmp_path):
+    mocks = _run_main(["scan", "10.0.0.0/24", "--cve-live", "--cve-timeout", "45"], tmp_path)
+    cve_cfg = mocks["risk"].call_args.kwargs["cve_config"]
+    assert cve_cfg["live_lookup"] is True
+    assert cve_cfg["request_timeout"] == 45
+

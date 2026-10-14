@@ -65,6 +65,10 @@ def make_gui_parser():
              "and the cve-live extra). Set the NVD_API_KEY env var for higher rate limits."
     )
     scan_p.add_argument(
+        "--cve-timeout", type=int, default=None,
+        help="Per-request HTTP timeout in seconds for live NVD API lookups (default: from config, 30s)."
+    )
+    scan_p.add_argument(
         "--profile", choices=["safe", "standard", "fast"], default=None,
         help="How hard to lean on the network. safe = gentle (recommended for live OT "
              "networks), standard, fast = original aggressive timing. Blank = use config."
