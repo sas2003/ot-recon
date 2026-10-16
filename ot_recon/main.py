@@ -38,7 +38,7 @@ def banner():
     )
     t = Text()
     t.append(logo + "\n", style="bold cyan")
-    t.append("  OPERATIONAL TECHNOLOGY (OT/ICS) RECONNAISSANCE TOOL\n", style="bold white")
+    t.append("  OT/ICS RECONNAISSANCE TOOL\n", style="bold white")
     t.append(f"  Version: v{__version__}  |  Safety Guardrails Active  |  Author: Abhinav\n", style="cyan")
     t.append("  Vendor Profiles: Siemens S7 | Rockwell EtherNet/IP | B&R Automation", style="dim white")
 
