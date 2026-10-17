@@ -648,3 +648,52 @@ def test_cli_cve_timeout_overrides_config_timeout(tmp_path):
     assert cve_cfg["live_lookup"] is True
     assert cve_cfg["request_timeout"] == 45
 
+
+def test_unique_path_handles_existing_files(tmp_path):
+    file1 = tmp_path / "report.html"
+    assert main_module._unique_path(file1) == file1
+
+    file1.write_text("existing")
+    file2 = main_module._unique_path(file1)
+    assert file2 == tmp_path / "report_1.html"
+
+    file2.write_text("existing 2")
+    file3 = main_module._unique_path(file1)
+    assert file3 == tmp_path / "report_2.html"
+
+
+def test_resolve_output_base_preserves_synchronization_across_extensions(tmp_path):
+    base = tmp_path / "scan_report"
+    # None exist
+    resolved = main_module._resolve_output_base(base, (".html", ".json", ".csv"))
+    assert resolved == base
+
+    # Create only the html file
+    (tmp_path / "scan_report.html").write_text("dummy")
+    resolved2 = main_module._resolve_output_base(base, (".html", ".json", ".csv"))
+    assert resolved2 == tmp_path / "scan_report_1"
+
+
+def test_default_scan_report_uses_timestamp_naming_and_does_not_overwrite(tmp_path):
+    mocks = _run_main(["scan", "10.0.0.0/24", "--format", "html"], tmp_path)
+    out_html_path = mocks["export_html"].call_args.args[1]
+    assert out_html_path.parent == tmp_path
+    assert out_html_path.name.startswith("report_")
+    assert out_html_path.suffix == ".html"
+
+
+def test_custom_report_name_flag_and_non_overwriting(tmp_path):
+    # First run creates custom_site.html
+    mocks = _run_main(["scan", "10.0.0.0/24", "--format", "html", "--report-name", "custom_site"], tmp_path)
+    out_path = mocks["export_html"].call_args.args[1]
+    assert out_path == tmp_path / "custom_site.html"
+
+    # Simulate that file existing on disk
+    out_path.write_text("first report content")
+
+    # Second run with same report name must not overwrite, but create custom_site_1.html
+    mocks2 = _run_main(["scan", "10.0.0.0/24", "--format", "html", "--report-name", "custom_site"], tmp_path)
+    out_path2 = mocks2["export_html"].call_args.args[1]
+    assert out_path2 == tmp_path / "custom_site_1.html"
+
+

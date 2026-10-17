@@ -15,11 +15,11 @@ from ot_recon.core.paths import OUTPUT_DIR
 HISTORY_DIR = OUTPUT_DIR / "history"
 
 # Snapshot filenames sort correctly as strings because of this format.
-_TS_FORMAT = "%Y%m%dT%H%M%SZ"
+_TS_FORMAT = "%Y%m%d_%H%M%S"
 
 
 def _now_ts():
-    return datetime.now(timezone.utc).strftime(_TS_FORMAT)
+    return datetime.now().astimezone().strftime(_TS_FORMAT)
 
 
 def save_snapshot(data, history_dir=None, meta=None):

@@ -73,9 +73,14 @@ def build_parser():
              "also write report file(s) to the output dir. (default: from config)"
     )
     scan_p.add_argument(
+        "--report-name", type=str, default=None,
+        help="Custom filename for exported report(s) without extension (saved under output/<name>.<ext>). "
+             "Default: timestamped name (output/report_YYYYMMDD_HHMMSS.<ext>)."
+    )
+    scan_p.add_argument(
         "--outfile", type=str, default=None,
         help="Base path/name for exported report file(s) (extension is added "
-             "automatically). Defaults to output/report.<ext>."
+             "automatically). Takes precedence over --report-name."
     )
     scan_p.add_argument(
         "--config", type=str, default=None,
@@ -164,8 +169,45 @@ def build_parser():
     return parser
 
 
-def _utcnow_iso():
-    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+def _local_iso():
+    return datetime.now().astimezone().isoformat(timespec="seconds")
+
+
+# Backwards compatibility alias
+_utcnow_iso = _local_iso
+
+
+def _unique_path(path: Path) -> Path:
+    """Ensure path does not overwrite an existing file by appending _1, _2, etc."""
+    if not path.exists():
+        return path
+    parent = path.parent
+    stem = path.stem
+    suffix = path.suffix
+    counter = 1
+    while True:
+        candidate = parent / f"{stem}_{counter}{suffix}"
+        if not candidate.exists():
+            return candidate
+        counter += 1
+
+
+def _resolve_output_base(base: Path, extensions: tuple[str, ...]) -> Path:
+    """If any file with `base.<ext>` already exists, find base_1, base_2, etc.
+    so all output formats for this scan share the exact same stem without overwriting."""
+    parent = base.parent
+    stem = base.stem if base.suffix in extensions else (base.name if not base.suffix else base.stem)
+    base_candidate = parent / stem
+
+    if not any((base_candidate.with_suffix(ext)).exists() for ext in extensions):
+        return base_candidate
+
+    counter = 1
+    while True:
+        candidate = parent / f"{stem}_{counter}"
+        if not any((candidate.with_suffix(ext)).exists() for ext in extensions):
+            return candidate
+        counter += 1
 
 
 def _open_audit(config):
@@ -178,7 +220,7 @@ def _open_audit(config):
     if not config.get("audit", {}).get("enabled", True):
         return None
 
-    ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    ts = datetime.now().astimezone().strftime("%Y%m%d_%H%M%S")
     path = AUDIT_DIR / f"scan_{ts}.jsonl"
 
     try:
@@ -272,7 +314,7 @@ def run_scan(args):
     audit_path = _open_audit(config)
 
     try:
-        started = _utcnow_iso()
+        started = _local_iso()
         runner.log_event(
             "scan_start", tool_version=__version__, user=runner.current_user(),
             target=args.target, profile=settings["name"], settings=settings,
@@ -320,7 +362,7 @@ def run_scan(args):
             "operator": runner.current_user(),
             "target": args.target,
             "started": started,
-            "finished": _utcnow_iso(),
+            "finished": _local_iso(),
             "profile": {
                 "name": settings["name"],
                 "description": settings.get("description", ""),
@@ -346,7 +388,27 @@ def run_scan(args):
         generate_report(data)
         print_coverage_summary(data, scan_ctx)
 
-        base = Path(outfile) if outfile else OUTPUT_DIR / "report"
+        report_ts = datetime.now().astimezone().strftime("%Y%m%d_%H%M%S")
+        report_name = getattr(args, "report_name", None)
+        if report_name:
+            r_path = Path(report_name)
+            base = r_path if r_path.parent != Path(".") else OUTPUT_DIR / r_path.name
+        elif outfile:
+            base = Path(outfile)
+        else:
+            base = OUTPUT_DIR / f"report_{report_ts}"
+
+        active_exts = []
+        if out_format in ("json", "all"):
+            active_exts.append(".json")
+        if out_format in ("csv", "all"):
+            active_exts.append(".csv")
+        if out_format in ("html", "all"):
+            active_exts.append(".html")
+
+        if active_exts:
+            base = _resolve_output_base(base, tuple(active_exts))
+
         base.parent.mkdir(parents=True, exist_ok=True)
 
         if out_format in ("json", "all"):
@@ -410,7 +472,7 @@ def run_report(args):
             except Exception:
                 diff = None
 
-    out = Path(args.out) if args.out else OUTPUT_DIR / "report.html"
+    out = _unique_path(Path(args.out) if args.out else OUTPUT_DIR / "report.html")
     out.parent.mkdir(parents=True, exist_ok=True)
 
     export_html(hosts, out, scan_ctx=scan_ctx, diff=diff,

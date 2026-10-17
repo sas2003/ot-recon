@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 
 
 def _now_iso():
-    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return datetime.now().astimezone().isoformat(timespec="seconds")
 
 
 def _sort_hosts_by_risk(hosts):

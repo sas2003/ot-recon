@@ -50,7 +50,7 @@ def command_count():
 
 
 def _now():
-    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+    return datetime.now().astimezone().isoformat(timespec="milliseconds")
 
 
 def log_event(event, **fields):

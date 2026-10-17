@@ -290,3 +290,12 @@ def test_risk_formula_in_appendix_matches_the_real_constants():
     out = render_html([_host()], scan_ctx=_ctx())
     for sev, weight in SEVERITY_WEIGHTS.items():
         assert f"{sev} = {weight}" in out
+
+
+def test_generated_timestamp_includes_local_timezone():
+    from datetime import datetime
+    now = datetime.now().astimezone()
+    tz_name = now.strftime("%Z") or now.strftime("%z")
+    out = render_html([_host()], scan_ctx=_ctx())
+    assert f"({tz_name})" in out
+

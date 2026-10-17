@@ -534,7 +534,9 @@ def _section_appendix():
 
 def render_html(data, scan_ctx=None, diff=None, previous_timestamp=None, snapshot_timestamp=None):
     ctx = scan_ctx or {}
-    generated = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    now = datetime.now().astimezone()
+    tz_name = now.strftime("%Z") or now.strftime("%z")
+    generated = now.strftime(f"%Y-%m-%d %H:%M ({tz_name})")
     target = ctx.get("target")
 
     body = [

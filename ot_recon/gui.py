@@ -48,8 +48,13 @@ def make_gui_parser():
     # FileSaver/FileChooser give native OS file dialogs instead of a plain
     # text box for anything path-shaped.
     scan_p.add_argument(
+        "--report-name", type=str, default=None,
+        help="Custom filename for exported report(s) without extension (saved under output/<name>.<ext>). "
+             "Default: timestamped name (output/report_YYYYMMDD_HHMMSS.<ext>)."
+    )
+    scan_p.add_argument(
         "--outfile", widget="FileSaver",
-        help="Base path/name for exported report file(s). Defaults to output/report.<ext>."
+        help="Base path/name for exported report file(s). Takes precedence over --report-name."
     )
     scan_p.add_argument(
         "--config", widget="FileChooser",

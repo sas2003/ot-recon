@@ -84,7 +84,7 @@ output:
   format: "table"
 
   # Default base path (no extension) for exported reports.
-  # null = output/report.<ext>
+  # null = timestamped default: output/report_YYYYMMDD_HHMMSS.<ext>
   outfile: null
 
 cve:
